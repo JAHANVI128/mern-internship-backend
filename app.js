@@ -1,9 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
 
 app.use(express.json());
+app.use(cors())
+
 const userRoutes = require('./routes/UserRoutes');
 const roleRoutes = require('./routes/RoleRoutes');
 
@@ -19,7 +22,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/mernintern",{
     console.log(err);
 })
 
-const PORT = 3000
+const PORT = 3001
 app.listen(PORT,() => {
     console.log("server is running on port ",PORT);
 })
