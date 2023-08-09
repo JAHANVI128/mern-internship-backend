@@ -73,6 +73,22 @@ const updateUser = (req,res) => {
     })
 }
 
+const getUserById = (req,res) => {
+    const id = req.params.id;
+    userSchema.findById(id).then((data) => {
+        res.status(200).json({
+            data:data,
+            message:"User logged in successfully.",
+            flag:1
+        })
+    }).catch((err) => {
+        res.status(500).json({
+            message:"Error in fetching user",
+            flag:0
+        })
+    })
+}
+
 const loginUser = (req,res) => {
     email = req.body.email;
     password = req.body.password;
@@ -106,5 +122,6 @@ module.exports = {
     createUser,
     deleteUser,
     updateUser,
-    loginUser
+    loginUser,
+    getUserById
 }
