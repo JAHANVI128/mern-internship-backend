@@ -72,9 +72,39 @@ const updateUser = (req,res) => {
         })
     })
 }
+
+const loginUser = (req,res) => {
+    email = req.body.email;
+    password = req.body.password;
+
+    userSchema.findOne({
+        email:email,
+        password:password
+    }).populate('userrole').then((data) => {
+        if(data){
+            res.status(200).json({
+                message:"User logged in successfully.",
+                flag:1,
+                data:data
+            })
+        }else{
+            res.status(200).json({
+                message:"Invalid credentials",
+                flag:0
+            })
+        }
+    }).catch((err) => {
+        res.status(500).json({
+            message:"Error in logging in user",
+            flag:0
+        })
+    })
+}
+
 module.exports = {
     getAllUsers,
     createUser,
     deleteUser,
-    updateUser
+    updateUser,
+    loginUser
 }
